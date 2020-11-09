@@ -90,3 +90,5 @@ fastlane/test_output
 iOSInjectionProject/
 
 Mukbang/secure.plist
+
+Pods/
