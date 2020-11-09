@@ -6,14 +6,24 @@
 //
 
 import UIKit
-
+import GoogleMaps
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    private var mapsApiKey: String {
+        guard let filePath = Bundle.main.path(forResource: "secure", ofType: "plist") else {
+          fatalError("Couldn't find file 'secure.plist'.")
+        }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: "MAPS_API_KEY") as? String else {
+          fatalError("Couldn't find key 'MAPS_API_KEY' in 'secure.plist'.")
+        }
+        return value
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSServices.provideAPIKey(mapsApiKey)
         return true
     }
 
